@@ -1,0 +1,16 @@
+.header {
+position: sticky;
+top: 0;
+background: #fff;
+border-bottom: 1px solid #E2E8F0;
+z-index: 100;
+}
+.header__bar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+height: 60px;
+padding: 0 16px;
+}
+.logo { font-weight: 700; font-size: 18px; color: #2B6CB0; }
+.burger { font-size: 22px; cursor: pointer; }

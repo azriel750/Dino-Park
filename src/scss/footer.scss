@@ -1,0 +1,15 @@
+.footer { 
+    padding: 32px 16px; 
+    background: #F7FAFC; 
+    border-top: 1px solid #E2E8F0; 
+    text-align: center; 
+}
+.footer .links, .footer .socials { 
+    display: flex; 
+    gap: 16px; 
+    justify-content: center; 
+    margin-bottom: 12px; }
+.footer a { 
+    color: #2B6CB0; 
+    font-weight: 500; 
+}

@@ -1,0 +1,31 @@
+@use "./nav.scss";
+@use "./flash.scss";
+@use "./book.scss";
+
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+p,
+a,
+ul,
+li,
+button,
+label,
+input {
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
