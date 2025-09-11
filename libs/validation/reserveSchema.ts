@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const currentYear = new Date().getFullYear();
 
-export const bookSchema = z.object({
+export const reserveSchema = z.object({
   title: z
     .string()
     .min(3, "Titre trop court (minimum 3 caractères)")
@@ -21,4 +21,4 @@ export const bookSchema = z.object({
     .max(currentYear, "Nous ne traitons pas les publications futures"),
 });
 
-export type BookInput = z.infer<typeof bookSchema>;
+export type reserveInput = z.infer<typeof reserveSchema>;

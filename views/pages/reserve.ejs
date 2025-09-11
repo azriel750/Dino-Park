@@ -1,0 +1,42 @@
+<%- include("../partials/head", {title: "Réservation Dino Park!" }) %>
+
+
+<section class="reservation">
+  <h1>🎟️ Réservez votre visite au Parc des Dinosaures</h1>
+
+  <form action="/reservation/paiement" method="POST" class="reservation-form">
+
+    <div class="form-group">
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="nom" required>
+    </div>
+
+    <div class="form-group">
+      <label for="prenom">Prénom :</label>
+      <input type="text" id="prenom" name="prenom" required>
+    </div>
+
+
+    <div class="form-group">
+      <label for="date">Date de visite :</label>
+      <input type="date" id="date" name="date" required min="<%= new Date().toISOString().split('T')[0] %>">
+    </div>
+
+
+    <h3>Sélection des billets :</h3>
+    <div class="tickets">
+      <label>Adultes :</label>
+      <input type="number" name="adultes" value="0" min="0">
+
+      <label>Enfants :</label>
+      <input type="number" name="enfants" value="0" min="0">
+
+      <label>VIP :</label>
+      <input type="number" name="vip" value="0" min="0">
+    </div>
+
+    <button type="submit" class="btn-primary">Continuer vers le paiement</button>
+  </form>
+</section>
+
+<%- include("../partials/footer") %>

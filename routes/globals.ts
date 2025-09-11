@@ -8,5 +8,8 @@ globalRouter.get("/", (request, response) => {
   const controller = new GlobalsController(request, response);
   controller.homepage();
 });
-
+globalRouter.get("/login", (request, response) => {
+  const controller = new GlobalsController(request, response);
+  controller.homepage();
+});
 export default globalRouter;
