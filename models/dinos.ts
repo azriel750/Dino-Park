@@ -1,25 +1,25 @@
 export interface dinosaureTypeRow {
   id: number | null;
-  nom: string;
-  régime: string;
+  nom_commun: string;
+  regime: string;
 description:string;
 }
 
 export class dinosaure {
   protected id: number | null;
-  protected nom: string;
-  protected régime : string;
+  protected nom_commun: string;
+  protected regime : string;
   protected description:string;
 
   constructor(id: number | null, nom: string, régime:string,description:string,){
     this.id = id;
-    this.nom = nom;
-    this.régime = régime;
+    this.nom_commun = nom;
+    this.regime = régime;
     this.description= description;
   }
 
   static fromRow(row: dinosaureTypeRow): dinosaure {
-    return new dinosaure(row.id, row.nom, row.régime, row.description);
+    return new dinosaure(row.id, row.nom_commun, row.regime, row.description);
   }
 
   getId() {
@@ -27,10 +27,10 @@ export class dinosaure {
   }
 
   getnom() {
-    return this.nom;
+    return this.nom_commun;
   }
   getrégime(){
-    return this.régime;
+    return this.regime;
   }
   getdescription(){
     return this.description;

@@ -2,41 +2,25 @@
 
 
 <section class="reservation">
-  <h1>🎟️ Réservez votre visite au Parc des Dinosaures</h1>
+ <form action="/reservation/paiement" method="POST">
+  <label>Nom :</label>
+  <input type="text" name="nom" required>
 
-  <form action="/reservation/paiement" method="POST" class="reservation-form">
+  <label>Type de billet :</label>
+  <select name="typeBillet">
+    <option value="Adulte">Adulte</option>
+    <option value="Enfant">Enfant</option>
+    <option value="VIP">VIP</option>
+  </select>
 
-    <div class="form-group">
-      <label for="nom">Nom :</label>
-      <input type="text" id="nom" name="nom" required>
-    </div>
+  <label>Quantité :</label>
+  <input type="number" name="quantite" min="1" value="1" required>
 
-    <div class="form-group">
-      <label for="prenom">Prénom :</label>
-      <input type="text" id="prenom" name="prenom" required>
-    </div>
+  <label>Montant total (€) :</label>
+  <input type="number" name="montantTotal" readonly value="25">
 
-
-    <div class="form-group">
-      <label for="date">Date de visite :</label>
-      <input type="date" id="date" name="date" required min="<%= new Date().toISOString().split('T')[0] %>">
-    </div>
-
-
-    <h3>Sélection des billets :</h3>
-    <div class="tickets">
-      <label>Adultes :</label>
-      <input type="number" name="adultes" value="0" min="0">
-
-      <label>Enfants :</label>
-      <input type="number" name="enfants" value="0" min="0">
-
-      <label>VIP :</label>
-      <input type="number" name="vip" value="0" min="0">
-    </div>
-
-    <button type="submit" class="btn-primary">Continuer vers le paiement</button>
-  </form>
+  <button type="submit">Payer</button>
+</form>
 </section>
 
 <%- include("../partials/footer") %>

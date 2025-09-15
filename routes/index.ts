@@ -7,6 +7,7 @@ const router = Router();
 
 router.use(globalRouter);
 router.use('/reserve', reserveRouter);
+router.use("/reservation", reserveRouter);
 
 
 export default router;

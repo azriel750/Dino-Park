@@ -3,9 +3,9 @@ const usernameInput = document.getElementById("username") as HTMLInputElement;
 const passwordInput = document.getElementById("password") as HTMLInputElement;
 const message = document.getElementById("message") as HTMLParagraphElement;
 
-// Identifiants fixes pour le test (⚠️ visibles dans le code !)
+
 const ADMIN_USER = "admin";
-const ADMIN_PASS = "1234";
+const ADMIN_PASS = "tonmotdepasse";
 
 loginBtn.addEventListener("click", () => {
   const username = usernameInput.value.trim();

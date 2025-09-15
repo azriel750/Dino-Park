@@ -1,8 +1,5 @@
 import { Repository } from "../libs/Repository";
-import { dinosaure } from "../models/Dinos";
-
-
-
+import { dinosaure } from "../models/dinos";
 
 export class dinosaureRepository extends Repository {
   // Récupère toutes les catégories
@@ -18,7 +15,7 @@ export class dinosaureRepository extends Repository {
 
       // [2] Transforme les données brutes en objets `dinosaure`
       const data = result.rows.map((row) => {
-        return new dinosaure(row.id, row.nom, row.régime, row.description);
+        return new dinosaure(row.id, row.nom_commun, row.regime, row.description);
       });
 
       // [3] Retourne une promesse d'un tableau de `dinosaure`

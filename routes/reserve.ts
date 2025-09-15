@@ -42,5 +42,9 @@ reserveRouter.get("/:id", (request, response) => {
   const controller = new reserveController(request, response);
   controller.readreserve();
 });
+reserveRouter.post("/paiement", (req, res) => {
+  const controller = new reserveController(req, res);
+  controller.paiement();
+});
 
 export default reserveRouter;

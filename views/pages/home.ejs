@@ -17,6 +17,15 @@
 
 Le parking est la propriété de la Communauté de Communes et est géré par la Mairie de Monteux. Le parking est payant.
 </p>
+ <h1>Les dinosaures du parc</h1>
+  <ul>
+    <% dinos.forEach(dino => { %>
+      <li>
+        <strong><%= dino.nom_commun %></strong>  
+        (<%= dino.regime %>) <br>
+        <em><%= dino.description %></em>
+      </li>
+    <% }) %>
       <div class="grid">
         <div class="feature-card">
           <div class="feature-card__icon">⚡</div>

@@ -10,6 +10,6 @@ globalRouter.get("/", (request, response) => {
 });
 globalRouter.get("/login", (request, response) => {
   const controller = new GlobalsController(request, response);
-  controller.homepage();
+  controller.login();
 });
 export default globalRouter;

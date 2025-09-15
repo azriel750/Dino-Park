@@ -17,7 +17,7 @@ async findAll(): Promise<billets[]> {
     // On transforme les rows en instances de billets
     const data = result.rows.map((row) => billets.fromRow(row));
 
-    return data;
+    return data; 
   } catch (error) {
     console.error(error);
     return [];

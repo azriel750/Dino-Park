@@ -1,0 +1,18 @@
+<%- include("../partials/head", { title: "Confirmation" }) %>
+
+<section class="confirmation">
+  <h1>✅ Réservation confirmée !</h1>
+  <p>Merci <strong><%= nom %></strong> pour votre réservation.</p>
+
+  <h2>Détails de votre commande :</h2>
+  <ul>
+    <li><strong>Type de billet :</strong> <%= typeBillet %></li>
+    <li><strong>Quantité :</strong> <%= quantite %></li>
+    <li><strong>Total payé :</strong> <%= montantTotal %> €</li>
+  </ul>
+
+  <p>Un e-mail de confirmation vous sera envoyé sous peu.</p>
+  <a href="/">⬅ Retour à l’accueil</a>
+</section>
+
+<%- include("../partials/footer") %>
