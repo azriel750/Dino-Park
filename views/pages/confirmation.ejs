@@ -2,16 +2,22 @@
 
 <section class="confirmation">
   <h1>✅ Réservation confirmée !</h1>
-  <p>Merci <strong><%= nom %></strong> pour votre réservation.</p>
+  <p>Merci <strong><%= nom_client %></strong> pour votre réservation du <%= reservation.date_reservation %>.</p>
 
   <h2>Détails de votre commande :</h2>
   <ul>
-    <li><strong>Type de billet :</strong> <%= typeBillet %></li>
-    <li><strong>Quantité :</strong> <%= quantite %></li>
-    <li><strong>Total payé :</strong> <%= montantTotal %> €</li>
+    <% billetsChoisis.forEach(item => { %>
+      <li>
+        <strong><%= item.billet.getIntitule() %></strong> - 
+        Quantité : <%= item.quantite %> - 
+        Prix unitaire : <%= item.billet.getTarifUnitaire() %> € - 
+        Sous-total : <%= item.billet.getTarifUnitaire() * item.quantite %> €
+      </li>
+    <% }) %>
   </ul>
 
-  <p>Un e-mail de confirmation vous sera envoyé sous peu.</p>
+  <p><strong>Total payé :</strong> <%= reservation.montant_total %> €</p>
+
   <a href="/">⬅ Retour à l’accueil</a>
 </section>
 

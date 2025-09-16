@@ -1,32 +1,42 @@
-export interface billetsTypeRow {
-  id: number | null;
-  intitule: string;
+export interface billetTypeRow {
+  id: number;
+  intitulé: string;
   tarif_unitaire: number;
+  description: string;
 }
 
 export class billets {
-  protected id: number | null;
-  protected intitule: string;
-  protected tarif_unitaire : number;
+  protected id: number;
+  protected intitulé: string;
+  protected tarif_unitaire: number;
+  protected description: string;
 
-  constructor(id: number | null, intitule: string, tarif_unitaire:number,){
+  constructor(id: number, intitulé: string, tarif_unitaire: number, description: string) {
     this.id = id;
-    this.intitule = intitule;
+    this.intitulé = intitulé;
     this.tarif_unitaire = tarif_unitaire;
+    this.description = description;
   }
 
-  static fromRow(row: billetsTypeRow): billets {
-    return new billets(row.id, row.intitule, row.tarif_unitaire,);
+  // Hydratation depuis la DB
+  static fromRow(row: billetTypeRow): billets {
+    return new billets(row.id, row.intitulé, row.tarif_unitaire, row.description);
   }
 
-  getId() {
+  // === Getters ===
+  getId(): number {
     return this.id;
   }
 
-  getintitule() {
-    return this.intitule;
+  getIntitule(): string {
+    return this.intitulé;
   }
-  gettarif_unitaire(){
+
+  getTarifUnitaire(): number {
     return this.tarif_unitaire;
+  }
+
+  getDescription(): string {
+    return this.description;
   }
 }

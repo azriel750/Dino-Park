@@ -4,22 +4,20 @@ import { billets } from "../models/billets";
 
 
 export class billetsRepository extends Repository {
-  // Récupère toutes les catégories
-async findAll(): Promise<billets[]> {
-  const query = {
-    name: "fetch-all-billets",
-    text: `SELECT * FROM billets`,
-  };
+  async findAll(): Promise<billets[]> {
+    const query = {
+      name: "fetch-all-billets",
+      text: `SELECT * FROM type_de_billets`, // ✅ corriger ici
+    };
 
-  try {
-    const result = await this.pool.query(query);
+    try {
+      const result = await this.pool.query(query);
 
-    // On transforme les rows en instances de billets
-    const data = result.rows.map((row) => billets.fromRow(row));
-
-    return data; 
-  } catch (error) {
-    console.error(error);
-    return [];
+      const data = result.rows.map((row) => billets.fromRow(row));
+      return data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
-}}
+}

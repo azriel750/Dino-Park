@@ -1,26 +1,41 @@
-<%- include("../partials/head", {title: "Réservation Dino Park!" }) %>
-
+<%- include("../partials/head", { title: "Réservation Dino Park!" }) %>
 
 <section class="reservation">
- <form action="/reservation/paiement" method="POST">
-  <label>Nom :</label>
-  <input type="text" name="nom" required>
+  <form action="/reservation/paiement" method="POST">
 
-  <label>Type de billet :</label>
-  <select name="typeBillet">
-    <option value="Adulte">Adulte</option>
-    <option value="Enfant">Enfant</option>
-    <option value="VIP">VIP</option>
-  </select>
+    <!-- Nom du client -->
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" name="nom" required>
 
-  <label>Quantité :</label>
-  <input type="number" name="quantite" min="1" value="1" required>
+    <!-- Date de visite -->
+    <label for="date_reservation">Date de visite :</label>
+    <input 
+      type="date" 
+      id="date_reservation" 
+      name="date_reservation" 
+      required 
+      min="<%= new Date().toISOString().split('T')[0] %>"
+    >
 
-  <label>Montant total (€) :</label>
-  <input type="number" name="montantTotal" readonly value="25">
+    <!-- Sélection des billets -->
+    <h2>Choisissez vos billets :</h2>
+    <% billets.forEach((b) => { %>
+      <div class="billet-row">
+        <label>
+          <%= b.getIntitule() %> - <%= b.getTarifUnitaire() %> €
+        </label>
+        <input 
+          type="number" 
+          name="quantite_<%= b.getId() %>" 
+          min="0" 
+          step="1" 
+          value="0"
+        >
+      </div>
+    <% }) %>
 
-  <button type="submit">Payer</button>
-</form>
+    <button type="submit">Payer</button>
+  </form>
 </section>
 
 <%- include("../partials/footer") %>

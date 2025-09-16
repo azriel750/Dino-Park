@@ -1,99 +1,60 @@
-import z, { string } from "zod";
 import { Controller } from "../libs/Controller";
-
-
+import { billetsRepository } from "../repository/billets";
+import { reservationRepository } from "../repository/reserverepository";
 
 export class reserveController extends Controller {
-  public browsereserves() {
-    const success = this.request.query.success;
-    let flash = null;
 
-    if (success === "true") {
-      flash = {
-        type: "success",
-        message: "Le livre a bien été créé.",
-      };
-    } else if (success === "false") {
-      flash = {
-        type: "error",
-        message: "Une erreur est survenue lors de la création du livre.",
-      };
-    }
+  public async browsereserves() {
+    const repo = new billetsRepository();
+    const billets = await repo.findAll();
 
     this.response.render("pages/reserve.ejs", {
-
-      flash,
+      billets, 
+      flash: null
     });
   }
 
-  public readreserve() {
-    // Je récupère l'ID du livre réclamé (dans l'URL)
-    const requestedId = this.request.params.id;
+  public async paiement() {
+    const { nom, date_reservation } = this.request.body;
 
-    this.response.render("pages/reserve.ejs", {
-     
+    const billetRepo = new billetsRepository();
+    const billets = await billetRepo.findAll();
+
+    const billetsChoisis: { billet: any; quantite: number }[] = [];
+
+    billets.forEach(b => {
+      const quantite = Number(this.request.body[`quantite_${b.getId()}`] || 0);
+      if (quantite > 0) {
+        billetsChoisis.push({ billet: b, quantite });
+      }
     });
-  }
 
-  public editreserve() {
-    this.response.send("Bienvenue sur l'éditon d'un livre");
-  }
-
-
-  public createreserve() {
-    this.response.render("pages/reserveCreate.ejs", {
-      values: {},
-      errors: {}
-    });
-  }
-
-
-  public addreserve() {
-    
-    const reserveSchema = z.object({
-      title: string().min(3, "Trop court").max(50, "Trop long")
-    })
-
-
-    const result = reserveSchema.safeParse(this.request.body)
-
-    if (!result.success) {
-
-      const errors = z.treeifyError(result.error)
-
- 
-      return this.response.status(400).render("pages/reserveCreate.ejs", {
-        errors: errors.properties,
-        values: this.request.body
-      })
+    if (billetsChoisis.length === 0) {
+      return this.response.status(400).send("Veuillez sélectionner au moins un billet.");
     }
 
-    const newreserve = {
-    
-      title: this.request.body.title,
-    };
+    // Calcul du montant total
+    let montant_total = 0;
+    billetsChoisis.forEach(item => {
+      montant_total += item.billet.getTarifUnitaire() * item.quantite;
+    });
 
+    // Création de la réservation en base (nom NON utilisé)
+    const id_clients = 1; // valeur fixe pour l'exemple
+    const reservationRepo = new reservationRepository();
+    const reservation = await reservationRepo.create(
+      id_clients,
+      date_reservation,
+      billetsChoisis,
+      montant_total
+    );
 
-    this.response.redirect("/reserve?success=true");
-  }
-
-  public deletereserve() {
-    this.response.send("Bienvenue sur la suppression d'un livre");
-  }
-  public paiement() {
-    const { nom, typeBillet, quantite, montantTotal } = this.request.body;
-
-    // Ici tu pourrais insérer la réservation en DB
-    // await ReservationRepository.save(...);
-
-    // Une fois payé → redirection vers confirmation avec les infos
+    // Affichage de la confirmation avec le nom côté front seulement
     this.response.render("pages/confirmation", {
-      nom,
-      typeBillet,
-      quantite,
-      montantTotal,
+      reservation,
+      billetsChoisis,
+      nom_client: nom,
+       date_reservation: date_reservation
     });
   }
 }
-
-

@@ -1,11 +1,9 @@
-<%- include("../partials/head", { title: "Accueil " }) %>
-
-  <section class="hero">
+<section class="hero">
     <div class="hero__wrap">
       <h1 class="hero__title">Dinopark !</h1>
       <p class="hero__text">Le parc où les dinosaures reprennent vie !</p>
       <div class="hero__actions">
-       <a href="/attractions"><button class="btn btn--primary">Découvrez Notre park !</button></a> 
+        <button class="btn btn--primary">Découvrez Notre park !</button>
       </div>
     </div>
   </section>
@@ -17,31 +15,6 @@
 
 Le parking est la propriété de la Communauté de Communes et est géré par la Mairie de Monteux. Le parking est payant.
 </p>
- <h1>Les dinosaures du parc</h1>
-  <ul>
-    <% dinos.forEach(dino => { %>
-      <li>
-        <strong><%= dino.nom_commun %></strong>  
-        (<%= dino.regime %>) <br>
-        <em><%= dino.description %></em>
-      </li>
-    <% }) %>
-      <div class="grid">
-        <div class="feature-card">
-          <div class="feature-card__icon">⚡</div>
-          <h3>Rapidité</h3>
-          <p>Pas de files d’attente interminables</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-card__icon">🦖</div>
-          <h3>Immersion</h3>
-          <p>Une expérience unique avec nos dinosaures</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-card__icon">🎢</div>
-          <h3>Attractions</h3>
-          <p>Des manèges à sensations fortes</p>
-        </div>
       </div>
     </div>
   </section>

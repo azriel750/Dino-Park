@@ -1,29 +1,49 @@
 import { Repository } from "../libs/Repository";
 import { reservation } from "../models/reserve";
 
-
-
 export class reservationRepository extends Repository {
-  // Récupère toutes les catégories
+
   async findAll(): Promise<reservation[]> {
-    const query = {
-      name: "fetch-all-reserve",
-      text: `SELECT * FROM reserve`,
-    };
+    const query = { text: "SELECT * FROM reservation" };
+    const result = await this.pool.query(query);
+    return result.rows.map(row => reservation.fromRow(row));
+  }
 
-    try {
-      // [1] Soumission de la requête à la base de données
+  async create(
+    id_client: number,
+    date_reservation: string,
+    billets: { billet: any, quantite: number }[],
+    montant_total: number
+  ): Promise<reservation> {
+
+    let lastInserted: any;
+
+    for (const item of billets) {
+      const query = {
+        text: `
+          INSERT INTO reservation (
+            id_clients, 
+            date_de_la_reservation, 
+            billet_associe_a_la_commande, 
+            quantite, 
+            montant_total
+          )
+          VALUES ($1, $2, $3, $4, $5)
+          RETURNING *;
+        `,
+        values: [
+          id_client,
+          date_reservation,
+          item.billet.getId(),
+          item.quantite,
+          item.billet.getTarifUnitaire() * item.quantite
+        ],
+      };
+
       const result = await this.pool.query(query);
-
-      // [2] Transforme les données brutes en objets `reserve`
-      const data = result.rows.map((row) => {
-        return new reservation(row.id, row.date, row.billets);
-      });
-
-      // [3] Retourne une promesse d'un tableau de `reserve`
-      return data;
-    } catch (error) {
-      return [];
+      lastInserted = result.rows[0];
     }
+
+    return reservation.fromRow(lastInserted);
   }
 }
