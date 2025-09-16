@@ -54,7 +54,7 @@ export class reserveController extends Controller {
       reservation,
       billetsChoisis,
       nom_client: nom,
-       date_reservation: date_reservation
+       date_reservation: reservation.date_de_la_reservation
     });
   }
 }
