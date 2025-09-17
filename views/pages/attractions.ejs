@@ -1,9 +1,11 @@
+
+<%- include("../partials/head", { title: "Attractions " }) %>
+
 <section class="hero">
     <div class="hero__wrap">
       <h1 class="hero__title">Dinopark !</h1>
       <p class="hero__text">Le parc où les dinosaures reprennent vie !</p>
       <div class="hero__actions">
-        <button class="btn btn--primary">Découvrez Notre park !</button>
       </div>
     </div>
   </section>
@@ -18,7 +20,21 @@ Le parking est la propriété de la Communauté de Communes et est géré par la
       </div>
     </div>
   </section>
-
+ <h1>Les Attractions du parc</h1>
+  <ul>
+    <div class="attractions">
+    <% attraction.forEach(attraction => { %>
+      <div class="attraction-card"></div>
+      <li>
+        <% if (attraction.image) { %>
+          <img src="/attractions/<%=attraction.image %>" alt="<%= attraction.nom_de_l_attraction %>">
+      <% } %>
+        <strong><%= attraction.nom_de_l_attraction %></strong>  
+        <em><%= attraction.description %></em>
+      </li>
+      </div>
+    </div>
+    <% }) %>
   <section class="testimonials">
     <div class="testimonials__wrap">
       <h2 class="testimonials__title">Témoignages</h2>

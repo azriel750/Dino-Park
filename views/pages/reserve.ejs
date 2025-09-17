@@ -1,41 +1,46 @@
-<%- include("../partials/head", { title: "Réservation Dino Park!" }) %>
+<%- include("../partials/head", { title: "Réservation " }) %>
 
-<section class="reservation">
-  <form action="/reservation/paiement" method="POST">
+<form action="/reserve/paiement" method="POST" id="reservationForm" novalidate>
 
-    <!-- Nom du client -->
-    <label for="nom">Nom :</label>
-    <input type="text" id="nom" name="nom" required>
+  <label for="firstName">Prénom :</label>
+  <input type="text" id="firstName" name="firstName" value="<%= values?.firstName || '' %>">
+  <span class="error"><%= errors?.find(e => e.path[0]==='firstName')?.message || '' %></span>
 
-    <!-- Date de visite -->
-    <label for="date_reservation">Date de visite :</label>
-    <input 
-      type="date" 
-      id="date_reservation" 
-      name="date_reservation" 
-      required 
-      min="<%= new Date().toISOString().split('T')[0] %>"
-    >
+  <label for="lastName">Nom :</label>
+  <input type="text" id="lastName" name="lastName" value="<%= values?.lastName || '' %>">
+  <span class="error"><%= errors?.find(e => e.path[0]==='lastName')?.message || '' %></span>
 
-    <!-- Sélection des billets -->
-    <h2>Choisissez vos billets :</h2>
-    <% billets.forEach((b) => { %>
-      <div class="billet-row">
-        <label>
-          <%= b.getIntitule() %> - <%= b.getTarifUnitaire() %> €
-        </label>
-        <input 
-          type="number" 
-          name="quantite_<%= b.getId() %>" 
-          min="0" 
-          step="1" 
-          value="0"
-        >
-      </div>
-    <% }) %>
+  <label for="visitDate">Date de visite :</label>
+  <input type="date" id="visitDate" name="visitDate" 
+         min="<%= new Date().toISOString().split('T')[0] %>" 
+         value="<%= values?.visitDate || '' %>">
+  <span class="error"><%= errors?.find(e => e.path[0]==='visitDate')?.message || '' %></span>
 
-    <button type="submit">Payer</button>
-  </form>
-</section>
+  <h2>Choisissez vos billets :</h2>
+  <% billets.forEach(b => { %>
+    <div class="billet-row">
+      <label><%= b.getIntitule() %> - <%= b.getTarifUnitaire() %> €</label>
+      <input type="number" name="quantite_<%= b.getId() %>" min="0" step="1" value="<%= values?.['quantite_' + b.getId()] || 0 %>">
+      <span class="error"><%= errors?.find(e => e.path[0]==='tickets' && e.path[1] === 'quantite_' + b.getId())?.message || '' %></span>
+    </div>
+  <% }) %>
+
+  <h2>Paiement simulé</h2>
+  <label for="cardNumber">Numéro de carte</label>
+  <input type="text" id="cardNumber" name="cardNumber" value="<%= values?.cardNumber || '' %>">
+  <span class="error"><%= errors?.find(e => e.path[0]==='cardNumber')?.message || '' %></span>
+
+  <label for="expiry">Date d'expiration (MM/AA)</label>
+  <input type="text" id="expiry" name="expiry" value="<%= values?.expiry || '' %>">
+  <span class="error"><%= errors?.find(e => e.path[0]==='expiry')?.message || '' %></span>
+
+  <label for="cvv">CVV</label>
+  <input type="password" id="cvv" name="cvv" value="<%= values?.cvv || '' %>">
+  <span class="error"><%= errors?.find(e => e.path[0]==='cvv')?.message || '' %></span>
+
+  <input type="hidden" name="maskedCard" id="maskedCard" value="">
+
+  <button type="submit">Payer</button>
+</form>
 
 <%- include("../partials/footer") %>

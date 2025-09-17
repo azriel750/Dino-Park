@@ -15,7 +15,7 @@ loginBtn.addEventListener("click", () => {
     message.style.color = "green";
     message.innerText = "Connexion réussie ✅";
     setTimeout(() => {
-      window.location.href = "admin.html"; // Page de test admin
+      window.location.href = "admin.html"; 
     }, 1000);
   } else {
     message.style.color = "red";

@@ -11,5 +11,8 @@ globalRouter.get("/", (request, response) => {
 globalRouter.get("/login", (request, response) => {
   const controller = new GlobalsController(request, response);
   controller.login();
+});globalRouter.get("/Attractions", (request, response) => {
+  const controller = new GlobalsController(request, response);
+  controller.attractions();
 });
 export default globalRouter;

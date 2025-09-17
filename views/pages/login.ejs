@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Connexion Admin</title>
-</head>
-<body>
-  <div class="login-container">
-    <h2>Connexion Admin</h2>
-    <input type="text" id="username" placeholder="Nom d'utilisateur">
-    <input type="password" id="password" placeholder="Mot de passe">
-    <a href="/admin"><button id="loginBtn">Se connecter</button></a>
-    <p id="message"></p>
-  </div>
-  <script src="login.js"></script>
-</body>
-</html>
+<%- include("../partials/head", { title: "Admin " }) %>
+
+<form action="/admin/login" method="POST">
+  <label>Identifiant :</label>
+  <input type="text" name="username" required>
+  <label>Mot de passe :</label>
+  <input type="password" name="password" required>
+  <button type="submit">Se connecter</button>
+</form>
+
+<% if (typeof error !== "undefined" && error) { %>
+  <p style="color:red;"><%= error %></p>
+<% } %>
+
+<%- include("../partials/footer") %>

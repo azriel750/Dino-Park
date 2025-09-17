@@ -1,24 +1,32 @@
 import { z } from "zod";
 
-const currentYear = new Date().getFullYear();
-
-export const reserveSchema = z.object({
-  title: z
+export const reservationSchema = z.object({
+  firstName: z
     .string()
-    .min(3, "Titre trop court (minimum 3 caractères)")
-    .max(50, "Titre trop long (maximum 50 caractères)"),
+    .min(2, "Le prénom est trop court")
+    .max(50, "Le prénom est trop long"),
 
-  author_id: z.coerce.number().int().min(1, "L'auteur est requis"),
+  lastName: z
+    .string()
+    .min(2, "Le nom est trop court")
+    .max(50, "Le nom est trop long"),
 
-  publisher_id: z.coerce.number().int().min(1, "L'éditeur est requis"),
+  visitDate: z
+    .string()
+    .refine(date => {
+      const d = new Date(date);
+      return !isNaN(d.getTime()) && d >= new Date(); // pas de date passée
+    }, "Date de visite invalide ou déjà passée"),
 
-  category_id: z.coerce.number().int().min(1, "Une catégorie est requise"),
+  tickets: z.record(
+    z.string(), 
+    z.coerce.number().int().min(0, "Minimum 0 billet")
+  ),
 
-  publication_year: z.coerce
-    .number({ error: "Année invalide" })
-    .int()
-    .min(1980, "Nous ne traitons pas les livres publiés avant 1980")
-    .max(currentYear, "Nous ne traitons pas les publications futures"),
+  cardNumber: z.string().min(12, "Numéro de carte trop court").max(19, "Numéro de carte trop long"),
+  expiry: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Format MM/AA invalide"),
+  cvv: z.string().regex(/^\d{3,4}$/, "CVV invalide"),
+  maskedCard: z.string().optional()
 });
 
-export type reserveInput = z.infer<typeof reserveSchema>;
+export type ReservationInput = z.infer<typeof reservationSchema>;

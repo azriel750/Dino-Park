@@ -3,6 +3,7 @@ import router from "./routes";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { flashFromQuery } from "./middlewares/flash";
+import session from "express-session"; 
 
 const app = Express();
 const PORT = 3000;
@@ -17,6 +18,15 @@ app.set("views", path.join(__dirname, "views"));
 app.use(Express.static(path.join(__dirname, "public")));
 
 app.use(Express.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "secret",
+    resave: false,
+    saveUninitialized: true
+  })
+);
+
 
 app.use(flashFromQuery);
 

@@ -5,7 +5,7 @@
       <h1 class="hero__title">Dinopark !</h1>
       <p class="hero__text">Le parc où les dinosaures reprennent vie !</p>
       <div class="hero__actions">
-       <a href="/attractions"><button class="btn btn--primary">Découvrez Notre park !</button></a> 
+       <a href="/Attractions"><button class="btn btn--primary">Découvrez Notre park !</button></a> 
       </div>
     </div>
   </section>
@@ -19,28 +19,21 @@ Le parking est la propriété de la Communauté de Communes et est géré par la
 </p>
  <h1>Les dinosaures du parc</h1>
   <ul>
-    <% dinos.forEach(dino => { %>
-      <li>
-        <strong><%= dino.nom_commun %></strong>  
-        (<%= dino.regime %>) <br>
-        <em><%= dino.description %></em>
-      </li>
-    <% }) %>
-      <div class="grid">
-        <div class="feature-card">
-          <div class="feature-card__icon">⚡</div>
-          <h3>Rapidité</h3>
-          <p>Pas de files d’attente interminables</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-card__icon">🦖</div>
-          <h3>Immersion</h3>
-          <p>Une expérience unique avec nos dinosaures</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-card__icon">🎢</div>
-          <h3>Attractions</h3>
-          <p>Des manèges à sensations fortes</p>
+    
+     
+       <div class="dino-list">
+  <% dinos.forEach(dino => { %>
+    <div class="dino-card">
+      <% if (dino.image) { %>
+        <img src="/dinos/<%=dino.image %>" alt="<%= dino.nom_commun %>">
+      <% } %>
+      <h2><%= dino.nom_commun %></h2>
+      <p><strong>Régime :</strong> <%= dino.regime %></p>
+      <p><%= dino.description %></p>
+    </div>
+  <% }) %>
+</div>
+
         </div>
       </div>
     </div>

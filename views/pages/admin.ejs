@@ -1,8 +1,24 @@
+<%- include("../partials/head", { title: "Tableau de bord Admin" }) %>
 
-  <title>Panneau Admin</title>
-</head>
-<body>
-  <h1>Bienvenue sur le panneau admin 🎉</h1>
-  <p>Tu es connecté en tant qu’administrateur.</p>
-</body>
-</html>
+<h1>Tableau de bord Admin</h1>
+
+<h2>Statistiques ventes billets (semaine courante)</h2>
+<ul>
+  <% for(const [billet, qty] of Object.entries(stats)){ %>
+    <li><strong><%= billet %> :</strong> <%= qty %> vendus</li>
+  <% } %>
+</ul>
+
+<h2>Capacités d’accueil</h2>
+<table border="1">
+  <tr><th>Date</th><th>Réservés</th><th>Restants</th></tr>
+  <% for(const [day, info] of Object.entries(capacityByDay)){ %>
+    <tr>
+      <td><%= day %></td>
+      <td><%= info.booked %></td>
+      <td><%= info.remaining %></td>
+    </tr>
+  <% } %>
+</table>
+
+<%- include("../partials/footer") %>
