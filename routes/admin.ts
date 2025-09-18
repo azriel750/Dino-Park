@@ -2,12 +2,10 @@ import { Router } from "express";
 
 const adminRouter = Router();
 
-// Page login
 adminRouter.get("/", (req, res) => {
   res.render("pages/login", { error: null });
 });
 
-// POST login
 adminRouter.post("/login", (req, res) => {
   const { username, password } = req.body;
   const ADMIN_USER = "admin";
@@ -20,7 +18,6 @@ adminRouter.post("/login", (req, res) => {
   }
 });
 
-// Dashboard
 adminRouter.get("/dashboard", (req, res) => {
   const stats = {
     "Billet Adulte": 120,

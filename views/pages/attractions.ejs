@@ -1,74 +1,73 @@
-
 <%- include("../partials/head", { title: "Attractions " }) %>
 
 <section class="hero">
-    <div class="hero__wrap">
-      <h1 class="hero__title">Dinopark !</h1>
-      <p class="hero__text">Le parc où les dinosaures reprennent vie !</p>
-      <div class="hero__actions">
-      </div>
-    </div>
-  </section>
+  <div class="hero__wrap">
+    <h1 class="hero__title">Dinopark !</h1>
+    <p class="hero__text">Le parc où les dinosaures reprennent vie !</p>
+  </div>
+</section>
 
-  <section class="features">
-    <div class="features__wrap">
-      <h2 class="features__title">Découvrez Le Park et ses Attractions</h2>
-      <p>Le Parc est situé à 10 mn de Carpentras, à 15 mn d'Avignon, à 50 mn de Nîmes et d'Aix-en-Provence, à 1h des portes de Marseille, à 1h20 des portes de Montpellier et de Valence, à 2h10 des portes de Lyon et de Nice…
+<section class="features">
+  <div class="features__wrap">
+    <h2 class="features__title">Découvrez Le Parc et ses Attractions</h2>
+    <p>
+      Le Parc est situé à 10 mn de Carpentras, à 15 mn d'Avignon, à 50 mn de Nîmes et d'Aix-en-Provence, à 1h des portes de Marseille, à 1h20 des portes de Montpellier et de Valence, à 2h10 des portes de Lyon et de Nice…
+      <br><br>
+      Le parking est la propriété de la Communauté de Communes et est géré par la Mairie de Monteux. Le parking est payant.
+    </p>
+  </div>
+</section>
 
-Le parking est la propriété de la Communauté de Communes et est géré par la Mairie de Monteux. Le parking est payant.
-</p>
-      </div>
-    </div>
-  </section>
- <h1>Les Attractions du parc</h1>
-  <ul>
-    <div class="attractions">
-    <% attraction.forEach(attraction => { %>
-      <div class="attraction-card"></div>
-      <li>
-        <% if (attraction.image) { %>
-          <img src="/attractions/<%=attraction.image %>" alt="<%= attraction.nom_de_l_attraction %>">
+<h1>Les Attractions du parc</h1>
+
+<div class="dino-list attractions-list">
+  <% attraction.forEach(attraction => { %>
+    <div class="dino-card attraction-card">
+      <% if (attraction.image) { %>
+        <img src="/attractions/<%= attraction.image %>" alt="<%= attraction.nom_de_l_attraction %>">
       <% } %>
-        <strong><%= attraction.nom_de_l_attraction %></strong>  
-        <em><%= attraction.description %></em>
-      </li>
-      </div>
+      <h2><%= attraction.nom_de_l_attraction %></h2>
+      <p><%= attraction.description %></p>
     </div>
-    <% }) %>
-  <section class="testimonials">
-    <div class="testimonials__wrap">
-      <h2 class="testimonials__title">Témoignages</h2>
-      <div class="rail">
-        <div class="t-card">
-          <div class="t-head">
-            <div class="avatar"></div>
-            <div class="t-name">Alice</div>
-          </div>
-          <p>“Incroyable ! On se croirait vraiment à l’époque des dinosaures.”</p>
-        </div>
-        <div class="t-card">
-          <div class="t-head">
-            <div class="avatar"></div>
-            <div class="t-name">Bob</div>
-          </div>
-          <p>“Mes enfants ont adoré les attractions !”</p>
-        </div>
-        <div class="t-card">
-          <div class="t-head">
-            <div class="avatar"></div>
-            <div class="t-name">Clara</div>
-          </div>
-          <p>“Une journée magique, je recommande à 100%.”</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <% }) %>
+</div>
 
-  <section class="cta">
-    <div class="cta__wrap">
-      <h2 class="cta__title">Prêt pour l’aventure ?</h2>
-    <a href="/reserve"> <button class="btn btn--secondary">Réservez vos billets</button></a>
+<section class="testimonials">
+  <div class="testimonials__wrap">
+    <h2 class="testimonials__title">Témoignages</h2>
+    <div class="rail">
+      <div class="t-card">
+        <div class="t-head">
+          <div class="avatar"></div>
+          <div class="t-name">Alice</div>
+        </div>
+        <p>“Incroyable ! On se croirait vraiment à l’époque des dinosaures.”</p>
+      </div>
+      <div class="t-card">
+        <div class="t-head">
+          <div class="avatar"></div>
+          <div class="t-name">Bob</div>
+        </div>
+        <p>“Mes enfants ont adoré les attractions !”</p>
+      </div>
+      <div class="t-card">
+        <div class="t-head">
+          <div class="avatar"></div>
+          <div class="t-name">Clara</div>
+        </div>
+        <p>“Une journée magique, je recommande à 100%.”</p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta__wrap">
+    <h2 class="cta__title">Prêt pour l’aventure ?</h2>
+    <a href="/reserve">
+      <button class="btn btn--secondary">Réservez vos billets</button>
+    </a>
+  </div>
+</section>
 
 <%- include("../partials/footer") %>

@@ -1,6 +1,6 @@
 export interface reservationTypeRow {
   id_reservation: number | null;
-  date_de_la_reservation: string; // ou Date si tu veux manipuler un objet Date
+  date_de_la_reservation: string; 
   billet_associe_a_la_commande: number;
   id_clients: number;
   quantite: number;

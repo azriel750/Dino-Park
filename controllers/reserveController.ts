@@ -6,7 +6,6 @@ import { ZodError } from "zod";
 
 export class reserveController extends Controller {
 
-  // Affiche le formulaire avec tous les billets
   public async browsereserve() {
     const repo = new billetsRepository();
     const billets = await repo.findAll();
@@ -17,20 +16,16 @@ export class reserveController extends Controller {
       values: {}
     });
   }
-
-  // Paiement simulé
   public async paiement() {
     try {
       const billetRepo = new billetsRepository();
       const billets = await billetRepo.findAll();
 
-      // Construction tickets dynamiques
       const tickets: Record<string, number> = {};
       billets.forEach(b => {
         tickets[`quantite_${b.getId()}`] = Number(this.request.body[`quantite_${b.getId()}`] || 0);
       });
 
-      // Construction formData pour Zod
       const formData: ReservationInput = {
         firstName: this.request.body.firstName,
         lastName: this.request.body.lastName,
@@ -42,10 +37,8 @@ export class reserveController extends Controller {
         maskedCard: this.request.body.maskedCard || ""
       };
 
-      // Validation Zod
       const data = reservationSchema.parse(formData);
 
-      // Vérifier qu’au moins un billet est sélectionné
       const billetsChoisis = billets
         .filter(b => tickets[`quantite_${b.getId()}`] > 0)
         .map(b => ({ billet: b, quantite: tickets[`quantite_${b.getId()}`] }));
@@ -58,13 +51,11 @@ export class reserveController extends Controller {
         });
       }
 
-      // Calcul montant total
       const montant_total = billetsChoisis.reduce(
         (sum, item) => sum + item.billet.getTarifUnitaire() * item.quantite,
         0
       );
 
-      // Création réservation (simulée)
       const id_clients = 1;
       const reservationRepo = new reservationRepository();
       const reservation = await reservationRepo.create(
@@ -74,7 +65,6 @@ export class reserveController extends Controller {
         montant_total
       );
 
-      // Affichage confirmation
       return this.response.render("pages/confirmation", {
         reservation,
         billetsChoisis,
@@ -85,7 +75,6 @@ export class reserveController extends Controller {
 
     } catch (err) {
       if (err instanceof ZodError) {
-        // Recharger formulaire avec erreurs et valeurs saisies
         const billetRepo = new billetsRepository();
         const billets = await billetRepo.findAll();
 

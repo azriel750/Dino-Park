@@ -7,13 +7,11 @@ export class GlobalsController extends Controller {
 
   public async homepage() {
     try {
-      // Crée une instance du repository
-      const repo = new dinosaureRepository();
 
-      // Récupère tous les dinosaures via le repository
+      const repo = new dinosaureRepository();
+   
       const dinos = await repo.findAll();
 
-      // Passe les données à la vue
       this.response.render("pages/home", { dinos });
     } catch (err) {
       console.error("Erreur SQL:", err); 

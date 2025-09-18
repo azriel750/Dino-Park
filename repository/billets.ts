@@ -7,7 +7,7 @@ export class billetsRepository extends Repository {
   async findAll(): Promise<billets[]> {
     const query = {
       name: "fetch-all-billets",
-      text: `SELECT * FROM type_de_billets`, // ✅ corriger ici
+      text: `SELECT * FROM type_de_billets`, 
     };
 
     try {

@@ -3,7 +3,6 @@ import { GlobalsController } from "../controllers/GlobalsController";
 
 const globalRouter = Router();
 
-// HOMEPAGE
 globalRouter.get("/", (request, response) => {
   const controller = new GlobalsController(request, response);
   controller.homepage();

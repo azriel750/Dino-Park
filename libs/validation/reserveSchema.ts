@@ -15,7 +15,7 @@ export const reservationSchema = z.object({
     .string()
     .refine(date => {
       const d = new Date(date);
-      return !isNaN(d.getTime()) && d >= new Date(); // pas de date passée
+      return !isNaN(d.getTime()) && d >= new Date();
     }, "Date de visite invalide ou déjà passée"),
 
   tickets: z.record(
