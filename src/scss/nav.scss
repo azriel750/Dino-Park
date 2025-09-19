@@ -12,13 +12,24 @@
     justify-content: space-between;
     align-items: center;
 
-    .logo {
-      font-size: 24px;
-      font-weight: 700;
-      text-decoration: none;
-      color: #FFD700;
-    }
-
+   .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  color: #F5F5DC;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+   }
+    img {
+    height: 40px; 
+    width: auto;
+    display: block;
+  }
+   span {
+    display: inline-block;
+  }
+}
     .burger {
       font-size: 28px;
       cursor: pointer;
@@ -45,7 +56,7 @@
       }
     }
   }
-}
+
 
 @media (min-width: 1024px) {
   .header {
